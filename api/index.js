@@ -6,12 +6,15 @@ import {
 const typeDefs = `#graphql
   type Query {
     hello(name: String): String
+    #query que recebe dois numero e retorna a soma
+    #Recebe uma string e retorna a string uppercase
+    #recebe dois parametros, um booleano (issum) e dois numero. Quando booleano for true, soma os numeros, quando for false, subtrai os numeros.
   }
 `
 
 const resolvers = {
   Query: {
-    hello: (_, args, ctx) => `Hello ${args.name || 'World'}`
+    hello: (_, args) => `Hello ${args.name || 'World'}`
   }
 }
 
