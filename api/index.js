@@ -3,18 +3,47 @@ import {
   ApolloServerPluginLandingPageGraphQLPlayground
 } from "apollo-server-core";
 
+
 const typeDefs = `#graphql
+  type User {
+    id: ID!
+    name: String
+    age: Int
+  }
+
+  input UserData {
+    name: String
+    age: Int
+  }
+
   type Query {
-    hello(name: String): String
-    #query que recebe dois numero e retorna a soma
-    #Recebe uma string e retorna a string uppercase
-    #recebe dois parametros, um booleano (issum) e dois numero. Quando booleano for true, soma os numeros, quando for false, subtrai os numeros.
+    users(id: ID):[User]!
+  }
+
+  type Mutation {
+    MergeUser(id: ID, input: UserData): User
   }
 `
+const users = [
+  { id: '1', name: 'John', age: 30 },
+  { id: '2', name: 'Jane', age: 20 }
+];
 
 const resolvers = {
   Query: {
-    hello: (_, args) => `Hello ${args.name || 'World'}`
+    users: (_, { id }) => {
+      if (id) {
+        return users.filter(user => {
+          return user.id === id
+        })
+      };
+      return users;
+    }
+  },
+  Mutation: {
+    MergeUser: (parent, args, context, info) => {
+      return null;
+    }
   }
 }
 
