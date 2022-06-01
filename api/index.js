@@ -31,6 +31,7 @@ const typeDefs = `#graphql
     MergeUser(id: ID, deleteIt: Boolean, input: UserData): User
   }
 `
+
 let users = [
   { id: 0, name: 'John', age: 30 },
   { id: 1, name: 'Jane', age: 20 }
